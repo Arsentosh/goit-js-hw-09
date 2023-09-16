@@ -1,6 +1,8 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import 'flatpickr/dist/themes/dark.css';
+import Notiflix, { Notify } from 'notiflix';
 
 const userInput = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
@@ -15,6 +17,10 @@ const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
+  minDate: 'today',
+  locale: {
+    firstDayOfWeek: 1, // start week on Monday
+  },
   minuteIncrement: 1,
   onClose(selectedDates) {
     checkDate(selectedDates);
@@ -32,6 +38,7 @@ function checkDate(selectedDates) {
 
   startBtn.addEventListener('click', onClickStart);
   function onClickStart() {
+    Notify.info('Timer was started');
     startBtn.disabled = true;
     userInput.disabled = true;
     timerOn(selectDate);
